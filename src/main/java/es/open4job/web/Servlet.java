@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import es.open4job.web.model.dao.EstacionServicioDAO;
 import es.open4job.web.model.vo.EstacionServicio;
@@ -42,9 +43,14 @@ public class Servlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		// Controlador
+		
+		HttpSession session = request.getSession(true);
 		String idIn = (String) request.getParameter("id");
-		int id = Integer.parseInt(idIn);
-
+		//int id = Integer.parseInt(idIn);
+		session.setAttribute("id", idIn);
+		request.getRequestDispatcher("confirmacion.jsp").forward(request, response);
+		
+/*
 		// Modelo
 		BaseDatosDAO bbdd = new BaseDatosDAO();
 
@@ -55,8 +61,13 @@ public class Servlet extends HttpServlet {
 					.getListadoEstacionServicio(id, conexion);
 
 			// Vista
-			PrintWriter out = response.getWriter();
-			out.println("<html>");
+			//PrintWriter out = response.getWriter();
+			
+			//request.setAttribute("estacion", estacionesServicio);
+			//session.setAttribute("estacion", estacionesServicio);
+
+			
+			/*out.println("<html>");
 			out.println("<body>");
 			out.println("<h1>Estación Servicio: "
 					+ estacionesServicio.toString() + "</h1>");
@@ -70,6 +81,8 @@ public class Servlet extends HttpServlet {
 		}
 
 		bbdd.cerrarConexion();
+		*/
+		
 	}
 
 	/**
